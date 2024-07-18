@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+    <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="de.hsu.grafcet.process.contribution1"
+            nameFilter="*.grafcet"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               label="GRAFCET"
+               path="additions"
+               id="de.hsu.grafcet.process.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Transformation Process Grafcet"
+               class="de.hsu.grafcet.process.popup.RunTransformation"
+               menubarPath="de.hsu.grafcet.process.menu1/group1"
+               enablesFor="1"
+               id="de.hsu.grafcet.process.newAction">
+         </action>
+
+      </objectContribution>
+   </extension>
+</plugin>
