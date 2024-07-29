@@ -3,7 +3,7 @@ Model-to-model transformation of a process variant of GRAFCET into IEC 60848 GRA
 
 
 ## Installation
-* Set up the GRAFCET-Editor: https://github.com/Project-AGRAFE/GRAFCET-editor
+* Set up the GRAFCET-Editor: https://github.com/Project-AGRAFE/GRAFCET-editor (but use the de.hsu.grafcet.*-files from this repository) 
 * Import this Eclipse projekt (https://github.com/Project-AGRAFE/GRAFCET-process-transformation/tree/main/de.hsu.grafcet.processTransformation) into the same Eclipse workspace as the editor project files (https://github.com/Project-AGRAFE/GRAFCET-editor/tree/main/project).
 
 ## Create a Process Variant of Grafcet
