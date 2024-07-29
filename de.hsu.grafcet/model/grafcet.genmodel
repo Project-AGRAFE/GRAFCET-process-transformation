@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/de.hsu.grafcet/src-gen" creationIcons="false"
+    editDirectory="/de.hsu.grafcet.edit/src-gen" editorDirectory="/de.hsu.grafcet.editor/src-gen"
+    modelPluginID="de.hsu.grafcet" modelName="Grafcet" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>grafcet.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Grafcet" basePackage="de.hsu" disposableProviderFactory="true"
+      ecorePackage="grafcet.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grafcet.ecore#//ForcingOrderType">
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ForcingOrderType/currentSituation"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ForcingOrderType/emptySituation"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ForcingOrderType/initialSituation"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ForcingOrderType/explicitSituation"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grafcet.ecore#//StoredActionType">
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//StoredActionType/activation"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//StoredActionType/deactivation"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//StoredActionType/event"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grafcet.ecore#//ContinuousActionType">
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ContinuousActionType/continuousAction"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//ContinuousActionType/assignationCondition"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grafcet.ecore#//TimeUnit">
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeUnit/second"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeUnit/millisecond"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="grafcet.ecore#//TimeConditionType">
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeConditionType/none"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeConditionType/timeDependent"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeConditionType/timeDelayed"/>
+      <genEnumLiterals ecoreEnumLiteral="grafcet.ecore#//TimeConditionType/timeLimited"/>
+    </genEnums>
+    <genClasses ecoreClass="grafcet.ecore#//Grafcet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//Grafcet/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/variableDeclarationContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/partialGrafcets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/steps"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/transitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/synchronizations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/macrosteps"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/arcs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/actionTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/actionLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/controlGrafcet"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//Grafcet/processGrafcet"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//VariableDeclarationContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//VariableDeclarationContainer/variableDeclarations"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//PartialGrafcet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//PartialGrafcet/enclosingStep"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//MacrostepExpansion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//MacrostepExpansion/entryStep"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//MacrostepExpansion/exitStep"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//Node/id"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//InitializableType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//InitializableType/initial"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//InitializableType/activationLink"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//EnclosingStep">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//EnclosingStep/partialGrafcets"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//Step"/>
+    <genClasses ecoreClass="grafcet.ecore#//Transition"/>
+    <genClasses ecoreClass="grafcet.ecore#//Synchronization"/>
+    <genClasses ecoreClass="grafcet.ecore#//Macrostep">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//Macrostep/expansion"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//EntryStep"/>
+    <genClasses ecoreClass="grafcet.ecore#//ExitStep"/>
+    <genClasses ecoreClass="grafcet.ecore#//Arc">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//Arc/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//Arc/target"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//ActionType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//ActionType/id"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//ForcingOrder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//ForcingOrder/partialGrafcet"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//ForcingOrder/forcedSteps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//ForcingOrder/forcingOrderType"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//Action">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Action/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//StoredAction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//StoredAction/storedActionType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//StoredAction/value"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//ContinuousAction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//ContinuousAction/continuousActionType"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//ActionLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//ActionLink/step"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference grafcet.ecore#//ActionLink/actionType"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//TimeCondition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//TimeCondition/delayTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//TimeCondition/resetTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//TimeCondition/unit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grafcet.ecore#//TimeCondition/timeConditionType"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//Condition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference grafcet.ecore#//Condition/term"/>
+    </genClasses>
+    <genClasses ecoreClass="grafcet.ecore#//ProcessGrafcet"/>
+    <genClasses ecoreClass="grafcet.ecore#//ControlGrafcet"/>
+  </genPackages>
+  <genPackages prefix="Terms" ecorePackage="terms.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="terms.ecore#//VariableDeclarationType">
+      <genEnumLiterals ecoreEnumLiteral="terms.ecore#//VariableDeclarationType/input"/>
+      <genEnumLiterals ecoreEnumLiteral="terms.ecore#//VariableDeclarationType/output"/>
+      <genEnumLiterals ecoreEnumLiteral="terms.ecore#//VariableDeclarationType/internal"/>
+      <genEnumLiterals ecoreEnumLiteral="terms.ecore#//VariableDeclarationType/step"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="terms.ecore#//Term">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference terms.ecore#//Term/sort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//Term/id"/>
+    </genClasses>
+    <genClasses ecoreClass="terms.ecore#//Variable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference terms.ecore#//Variable/variableDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="terms.ecore#//VariableDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference terms.ecore#//VariableDeclaration/sort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//VariableDeclaration/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//VariableDeclaration/variableDeclarationType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference terms.ecore#//VariableDeclaration/step"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="terms.ecore#//Operator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference terms.ecore#//Operator/subterm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference terms.ecore#//Operator/output"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference terms.ecore#//Operator/input"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="terms.ecore#//Constant"/>
+    <genClasses image="false" ecoreClass="terms.ecore#//Sort">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//Sort/id"/>
+    </genClasses>
+    <genClasses ecoreClass="terms.ecore#//Bool"/>
+    <genClasses ecoreClass="terms.ecore#//Integer"/>
+    <genClasses image="false" ecoreClass="terms.ecore#//BooleanOperator"/>
+    <genClasses ecoreClass="terms.ecore#//And"/>
+    <genClasses ecoreClass="terms.ecore#//Or"/>
+    <genClasses ecoreClass="terms.ecore#//Not"/>
+    <genClasses ecoreClass="terms.ecore#//Equality"/>
+    <genClasses ecoreClass="terms.ecore#//BooleanConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//BooleanConstant/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="terms.ecore#//IntegerOperator"/>
+    <genClasses ecoreClass="terms.ecore#//Addition"/>
+    <genClasses ecoreClass="terms.ecore#//Substraction"/>
+    <genClasses ecoreClass="terms.ecore#//GreaterThan"/>
+    <genClasses ecoreClass="terms.ecore#//LessThan"/>
+    <genClasses ecoreClass="terms.ecore#//IntegerConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute terms.ecore#//IntegerConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="terms.ecore#//RisingEdge"/>
+    <genClasses ecoreClass="terms.ecore#//FallingEdge"/>
+  </genPackages>
+</genmodel:GenModel>

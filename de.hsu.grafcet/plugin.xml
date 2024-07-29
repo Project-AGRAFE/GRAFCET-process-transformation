@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated grafcet -->
+      <package
+            uri="http://www.example.org/grafcet"
+            class="de.hsu.grafcet.GrafcetPackage"
+            genModel="model/grafcet.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated grafcet -->
+      <package
+            uri="http://www.example.org/terms"
+            class="terms.TermsPackage"
+            genModel="model/grafcet.genmodel"/>
+   </extension>
+
+</plugin>

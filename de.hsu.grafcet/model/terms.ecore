@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="terms" nsURI="http://www.example.org/terms" nsPrefix="terms">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+    <details key="grafcet" value="grafcet.ecore#/"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Term" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sort" lowerBound="1" eType="#//Sort"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//Term">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="SortVariable"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="SortVariable" value="self.sort = self.variableDeclaration.sort"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableDeclaration" lowerBound="1"
+        eType="#//VariableDeclaration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclaration">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="StepVarDeclSetStep"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="StepVarDeclSetStep" value="self.variableDeclarationType = VariableDeclarationType::step implies step &lt;> null and self.sort.oclIsKindOf(Bool)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sort" lowerBound="1" eType="#//Sort"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableDeclarationType"
+        eType="#//VariableDeclarationType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="step" eType="ecore:EClass grafcet.ecore#//InitializableType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VariableDeclarationType">
+    <eLiterals name="input"/>
+    <eLiterals name="output" value="1"/>
+    <eLiterals name="internal" value="2"/>
+    <eLiterals name="step" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operator" abstract="true" eSuperTypes="#//Term">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="OperatorSort OperatorInputType"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="OperatorSort" value="self.sort = self.output"/>
+      <details key="OperatorInputType" value="self.subterm->collect(subterm|subterm.sort) = self.input->asSequence()"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" upperBound="-1"
+        eType="#//Term" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
+        eType="#//Sort" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
+        eType="#//Sort"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constant" abstract="true" eSuperTypes="#//Operator"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Sort" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Bool" eSuperTypes="#//Sort"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Integer" eSuperTypes="#//Sort"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanOperator" abstract="true" eSuperTypes="#//Operator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputOutputTypesBoolOp"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputOutputTypesBoolOp" value="self.output.oclIsKindOf(Bool) and  self.input->forAll(c | c.oclIsKindOf(Bool))"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="And" eSuperTypes="#//BooleanOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeAnd"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeAnd" value="self.input-> size() = 2"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//BooleanOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeOr"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeOr" value="self.input-> size() = 2"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Not" eSuperTypes="#//BooleanOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeNot"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeNot" value="self.input-> size() = 1"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Equality" eSuperTypes="#//Operator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeInputOutputTypesEq"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeInputOutputTypesEq" value="self.input-> size() >= 2 and self.output.oclIsKindOf(Bool) and self.input->forAll(c,d|c.oclIsTypeOf(d.oclType()) or d.oclIsTypeOf(c.oclType()))"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//Constant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeOutputTypesBoolConst"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeOutputTypesBoolConst" value="self.input-> size() = 0 and self.output.oclIsTypeOf(Bool)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerOperator" abstract="true" eSuperTypes="#//Operator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeTypesIntOp"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeTypesIntOp" value="self.input-> size() = 2 and self.input->forAll(c | c.oclIsKindOf(_'Integer'))"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Addition" eSuperTypes="#//IntegerOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="OutputTypesAdd"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="OutputTypesAdd" value="self.output.oclIsKindOf(_'Integer')"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Substraction" eSuperTypes="#//IntegerOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="OutputTypesSubstr"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="OutputTypesSubstr" value="self.output.oclIsKindOf(_'Integer')"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GreaterThan" eSuperTypes="#//IntegerOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="OutputTypesGreat"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="OutputTypesGreat" value="self.output.oclIsKindOf(Bool)"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LessThan" eSuperTypes="#//IntegerOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="OutputTypesLess"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="OutputTypesLess" value="self.output.oclIsKindOf(Bool)"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegerConstant" eSuperTypes="#//Constant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeOutputTypesIntConts"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeOutputTypesIntConts" value="self.input->size() = 0 and self.output.oclIsTypeOf(_'Integer')"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RisingEdge" eSuperTypes="#//BooleanOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeRisingEdge"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeRisingEdge" value="self.input->size() = 1"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FallingEdge" eSuperTypes="#//BooleanOperator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="InputSizeFallingEdge"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="InputSizeFallingEdge" value="self.input->size() = 1"/>
+    </eAnnotations>
+  </eClassifiers>
+</ecore:EPackage>

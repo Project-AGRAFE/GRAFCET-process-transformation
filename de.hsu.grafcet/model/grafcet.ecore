@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="grafcet" nsURI="http://www.example.org/grafcet" nsPrefix="grafcet">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+    <details key="terms" value="terms.ecore#/"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Grafcet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="GRAFCETChart"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableDeclarationContainer"
+        eType="#//VariableDeclarationContainer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partialGrafcets" upperBound="-1"
+        eType="#//Grafcet" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="steps" upperBound="-1"
+        eType="#//InitializableType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+        eType="#//Transition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="synchronizations" upperBound="-1"
+        eType="#//Synchronization" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="macrosteps" upperBound="-1"
+        eType="#//Macrostep" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arcs" upperBound="-1" eType="#//Arc"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actionTypes" upperBound="-1"
+        eType="#//ActionType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actionLinks" upperBound="-1"
+        eType="#//ActionLink" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controlGrafcet" lowerBound="1"
+        eType="#//ControlGrafcet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processGrafcet" eType="#//ProcessGrafcet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclarationContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableDeclarations" upperBound="-1"
+        eType="ecore:EClass terms.ecore#//VariableDeclaration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PartialGrafcet" eSuperTypes="#//Grafcet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enclosingStep" eType="#//EnclosingStep"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MacrostepExpansion" eSuperTypes="#//Grafcet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entryStep" upperBound="-1"
+        eType="#//EntryStep" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exitStep" eType="#//ExitStep"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Node">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitializableType" eSuperTypes="#//Node">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="activationLink" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnclosingStep" eSuperTypes="#//InitializableType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partialGrafcets" lowerBound="1"
+        upperBound="-1" eType="#//PartialGrafcet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Step" eSuperTypes="#//InitializableType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Node #//TimeCondition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Synchronization" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Macrostep" eSuperTypes="#//Node">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expansion" lowerBound="1"
+        eType="#//MacrostepExpansion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EntryStep" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExitStep" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Arc">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//Node"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ForcingOrder" eSuperTypes="#//ActionType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="partialGrafcet" lowerBound="1"
+        eType="#//PartialGrafcet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="forcedSteps" upperBound="-1"
+        eType="#//InitializableType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="forcingOrderType" eType="#//ForcingOrderType"
+        defaultValueLiteral="currentSituation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ForcingOrderType">
+    <eLiterals name="currentSituation" literal="currentSituation"/>
+    <eLiterals name="emptySituation" value="1" literal="emptySituation"/>
+    <eLiterals name="initialSituation" value="2" literal="initialSituation"/>
+    <eLiterals name="explicitSituation" value="3" literal="explicitSituation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//ActionType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ActionOutputVariableType"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="ActionOutputVariableType" value="self.variable.variableDeclaration.variableDeclarationType = terms::VariableDeclarationType::output &#xA;&#x9;&#x9;&#x9;or if self.oclIsTypeOf(StoredAction) then &#xA;&#x9;&#x9;&#x9;self.variable.variableDeclaration.variableDeclarationType = terms::VariableDeclarationType::internal else false endif"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="ecore:EClass terms.ecore#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StoredAction" eSuperTypes="#//Action #//Condition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="StoredActionVarType StoredActionCondType"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="StoredActionVarType" value="self.variable.variableDeclaration.sort.oclType() = self.value.sort.oclType()"/>
+      <details key="StoredActionCondType" value="&#xA;&#x9;&#x9;&#x9;self.storedActionType = grafcet::StoredActionType::event implies(&#xA;&#x9;&#x9;&#x9;if self.term.oclIsTypeOf(terms::Variable) then false else&#xA;&#x9;&#x9;&#x9;self.term.oclAsType(terms::Operator)->closure(term: terms::Term| term->selectByKind(terms::Operator).subterm)&#xA;&#x9;&#x9;&#x9;->select(operator|operator.oclIsTypeOf(terms::RisingEdge))->size()&#xA;&#x9;&#x9;&#x9;+ self.term.oclAsType(terms::Operator)->closure(term: terms::Term| term->selectByKind(terms::Operator).subterm)&#xA;&#x9;&#x9;&#x9;->select(operator|operator.oclIsTypeOf(terms::FallingEdge))->size() > 0&#xA;&#x9;&#x9;&#x9;endif)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="storedActionType" lowerBound="1"
+        eType="#//StoredActionType" defaultValueLiteral="activation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass terms.ecore#//Term"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="StoredActionType">
+    <eLiterals name="activation"/>
+    <eLiterals name="deactivation" value="1"/>
+    <eLiterals name="event" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContinuousAction" eSuperTypes="#//Action #//TimeCondition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ContinuousActionVarType ContinuousActionCondType"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="ContinuousActionVarType" value="self.variable.variableDeclaration.sort.oclIsTypeOf(terms::Bool)"/>
+      <details key="ContinuousActionCondType" value="&#xA;&#x9;&#x9;&#x9;if self.continuousActionType = grafcet::ContinuousActionType::assignationCondition then&#xA;&#x9;&#x9;&#x9;if self.term.oclIsTypeOf(terms::Variable) then true else&#xA;&#x9;&#x9;&#x9;&#x9;self.term.oclAsType(terms::Operator)->closure(term: terms::Term| term->selectByKind(terms::Operator).subterm)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(operator|operator.oclIsTypeOf(terms::RisingEdge))->size()&#xA;&#x9;&#x9;&#x9;&#x9;+ self.term.oclAsType(terms::Operator)->closure(term: terms::Term| term->selectByKind(terms::Operator).subterm)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(operator|operator.oclIsTypeOf(terms::FallingEdge))->size() = 0&#xA;&#x9;&#x9;&#x9;endif&#xA;&#x9;&#x9;&#x9;else true endif"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="continuousActionType" eType="#//ContinuousActionType"
+        defaultValueLiteral="continuousAction"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ContinuousActionType">
+    <eLiterals name="continuousAction"/>
+    <eLiterals name="assignationCondition" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionLink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="step" lowerBound="1" eType="#//Step"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actionType" lowerBound="1"
+        eType="#//ActionType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeCondition" eSuperTypes="#//Condition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="delayTime" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resetTime" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//TimeUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeConditionType" eType="#//TimeConditionType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimeUnit">
+    <eLiterals name="second" literal="s"/>
+    <eLiterals name="millisecond" value="1" literal="ms"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimeConditionType">
+    <eLiterals name="none"/>
+    <eLiterals name="timeDependent" value="1"/>
+    <eLiterals name="timeDelayed" value="2"/>
+    <eLiterals name="timeLimited" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Condition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="ConditionTermType ConditionVariableType"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="ConditionTermType" value="self.term &lt;> null implies self.term.sort.oclIsTypeOf(terms::Bool)"/>
+      <details key="ConditionVariableType" value="self.term &lt;> null implies(if self.term.oclIsTypeOf(terms::Variable) then &#xA;&#x9;&#x9;&#x9;self.term.oclAsType(terms::Variable).variableDeclaration.variableDeclarationType &lt;> terms::VariableDeclarationType::output else&#xA;&#x9;&#x9;&#x9;self.term.oclAsType(terms::Operator)->closure(term: terms::Term| term->selectByKind(terms::Operator).subterm)&#xA;&#x9;&#x9;&#x9;->selectByKind(terms::Variable)->select(var|var.variableDeclaration.variableDeclarationType = terms::VariableDeclarationType::output)->size() = 0&#xA;&#x9;&#x9;&#x9;endif)"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="term" eType="ecore:EClass terms.ecore#//Term"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessGrafcet" eSuperTypes="#//PartialGrafcet"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ControlGrafcet" eSuperTypes="#//PartialGrafcet"/>
+</ecore:EPackage>

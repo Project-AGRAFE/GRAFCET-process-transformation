@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated grafcet -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="de.hsu.grafcet.presentation.GrafcetModelWizardID"
+            name="%_UI_GrafcetModelWizard_label"
+            class="de.hsu.grafcet.presentation.GrafcetModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/GrafcetModelFile.gif">
+         <description>%_UI_GrafcetModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated grafcet -->
+      <editor
+            id="de.hsu.grafcet.presentation.GrafcetEditorID"
+            name="%_UI_GrafcetEditor_label"
+            icon="icons/full/obj16/GrafcetModelFile.gif"
+            extensions="grafcet"
+            class="de.hsu.grafcet.presentation.GrafcetEditor"
+            contributorClass="de.hsu.grafcet.presentation.GrafcetActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated grafcet -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="terms.presentation.TermsModelWizardID"
+            name="%_UI_TermsModelWizard_label"
+            class="terms.presentation.TermsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/TermsModelFile.gif">
+         <description>%_UI_TermsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated grafcet -->
+      <editor
+            id="terms.presentation.TermsEditorID"
+            name="%_UI_TermsEditor_label"
+            icon="icons/full/obj16/TermsModelFile.gif"
+            extensions="terms"
+            class="terms.presentation.TermsEditor"
+            contributorClass="terms.presentation.TermsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
