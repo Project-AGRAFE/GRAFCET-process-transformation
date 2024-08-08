@@ -253,7 +253,7 @@ public class ProcessTransformation {
 		Variable varSync2 = facT.createVariable();
 		varSync2.setVariableDeclaration(varSyncDecl);
 		tNot.getSubterm().add(varSync2);
-		t2.setTerm(varSync2);
+		t2.setTerm(tNot);
 		
 		generateArc(sProcess, t1, gSync);
 		generateArc(t1, sControl, gSync);
