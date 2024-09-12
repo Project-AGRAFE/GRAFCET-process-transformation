@@ -91,51 +91,57 @@ public class ProcessTransformation {
 	
 	private void transformActions(PartialGrafcet grafcet) {
 		Map<VariableDeclaration, Set<Or>> varsMapActivatingTerms = new HashMap<VariableDeclaration, Set<Or>>();
+		Map<VariableDeclaration, Set<Or>> varsMapActivatingTermsCopy = new HashMap<VariableDeclaration, Set<Or>>();	//Later a deep copy of the terms is needed which is created on the fly
 		for (ActionType actionType : grafcet.getActionTypes()) {
 			if (actionType instanceof ContinuousAction) {
 				ContinuousAction contAction = (ContinuousAction) actionType;
 				VariableDeclaration varDecl = contAction.getVariable().getVariableDeclaration();
 				for (ActionLink actionLink : grafcet.getActionLinks()) {
+					if (actionLink.getActionType() == null) {
+						throw new IllegalArgumentException("Action Link " + actionLink + " has no action connected to it. Pleace check .grafcet model.");
+					}
+					if (actionLink.getStep() == null) {
+						throw new IllegalArgumentException("Action Link " + actionLink + " has no step connected to it. Pleace check .grafcet model.");
+					}
 					if (actionLink.getActionType().equals(contAction)) {
 						if(varsMapActivatingTerms.get(varDecl) == null) {
 							Set<Or> termsActivatingVar = new LinkedHashSet<Or>();
+							Set<Or> termsActivatingVarCopy = new LinkedHashSet<Or>();
 							varsMapActivatingTerms.put(varDecl, termsActivatingVar);
+							varsMapActivatingTermsCopy.put(varDecl, termsActivatingVarCopy);
 						}
 						Or orCondT1 = generateOrTermFAction(actionLink.getStep(), contAction.getTerm(), 
-								grafcet.getVariableDeclarationContainer());
+								gTransformed.getVariableDeclarationContainer());
+						Or orCondT1Copy = generateOrTermFAction(actionLink.getStep(), contAction.getTerm(), 
+								gTransformed.getVariableDeclarationContainer());
 						varsMapActivatingTerms.get(varDecl).add(orCondT1);
+						varsMapActivatingTermsCopy.get(varDecl).add(orCondT1Copy);
 					}
 				}
 			}
 		}
 		for (VariableDeclaration varDecl : varsMapActivatingTerms.keySet()) {
 			PartialGrafcet gV = facG.createPartialGrafcet();
+			gV.setName("G_contAction_" + varDecl.getName());
 			Step s1 = generateStepAction(gV, true, varDecl);
 			Step s2 = generateStepAction(gV, false, varDecl);
-			Transition t1 = facG.createTransition();
-			Transition t2 = facG.createTransition();
+
+			Or termT1 = assembleTermConditionFAction(varsMapActivatingTerms.get(varDecl));
+			Transition t1 = createTransitionFromTerm(getId(), gV, termT1);
+			
+			Not termT2 = facT.createNot();
+			termT2.getSubterm().add(assembleTermConditionFAction(varsMapActivatingTermsCopy.get(varDecl)));
+			Transition t2 = createTransitionFromTerm(getId(), gV, termT2);
 			
 			generateArc(s1, t1, grafcet);
 			generateArc(t1, s2, grafcet);
 			generateArc(s2, t2, grafcet);
 			generateArc(t2, s1, grafcet);
-			
-			
-			Or termT1 = assembleTermConditionFAction(varsMapActivatingTerms.get(varDecl));
-			t1.setTerm(termT1);
-			
-			Not termT2 = facT.createNot();
-			termT2.getSubterm().add(assembleTermConditionFAction(varsMapActivatingTerms.get(varDecl)));
-			t2.setTerm(termT2);
-			
-			gV.getSteps().add(s2);
-			gV.getSteps().add(s1);
-			gV.getTransitions().add(t2);
-			gV.getTransitions().add(t1);
-			
+		
 			gTransformed.getPartialGrafcets().add(gV);
 		}
 	}
+	
 	
 	/**
 	 * Assembles the terms to (x_step_1 AND b_cond_1) OR (x_step_2 AND b_cond_2) OR ... OR false 
@@ -188,7 +194,13 @@ public class ProcessTransformation {
 		container.getVariableDeclarations().add(stepVarDecl);
 		stepVar.setVariableDeclaration(stepVarDecl);
 		tAnd.getSubterm().add(stepVar);
-		tAnd.getSubterm().add(cond);
+		if (cond != null) {
+			tAnd.getSubterm().add(cond);
+		} else {
+			BooleanConstant tTrue = facT.createBooleanConstant();
+			tTrue.setValue(true);
+			tAnd.getSubterm().add(tTrue);
+		}
 		orOut.getSubterm().add(tAnd);		
 		return orOut;
 	}
