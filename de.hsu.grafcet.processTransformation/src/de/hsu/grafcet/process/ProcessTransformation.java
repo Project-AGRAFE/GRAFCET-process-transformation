@@ -65,7 +65,8 @@ public class ProcessTransformation {
 	}
 	
 	private void runTransformation() {
-		transformVariables();
+		//transformVariables();
+		gTransformed.setVariableDeclarationContainer(g.getVariableDeclarationContainer());
 		gProcessNew = transformGrafcetVariants(gProcess);
 		gProcess.setName("gProcess");
 		gControlNew = transformGrafcetVariants(gControl);	
@@ -82,8 +83,10 @@ public class ProcessTransformation {
 		return gTransformed;
 	}
 	
+	/**
+	 * @deprecated do not use. Instead declare variables correctly in the process model
+	 */
 	private void transformVariables() {		
-		gTransformed.setVariableDeclarationContainer(g.getVariableDeclarationContainer());
 		for (VariableDeclaration varDecl : gTransformed.getVariableDeclarationContainer().getVariableDeclarations()) {
 			varDecl.setVariableDeclarationType(VariableDeclarationType.INTERNAL);
 		}
@@ -187,11 +190,21 @@ public class ProcessTransformation {
 		orOut.getSubterm().add(tFalse);
 		And tAnd = facT.createAnd();
 		Variable stepVar = facT.createVariable();
-		VariableDeclaration stepVarDecl = facT.createVariableDeclaration();
-		stepVarDecl.setName("X" + step.getId());
-		stepVarDecl.setStep(step);
-		stepVarDecl.setVariableDeclarationType(VariableDeclarationType.INTERNAL);
-		container.getVariableDeclarations().add(stepVarDecl);
+		VariableDeclaration stepVarDecl = null;
+		boolean foundVar = false;
+		for (VariableDeclaration varDecl :  container.getVariableDeclarations()) {
+			if (varDecl.getName().equals("X" + step.getId())) {
+				foundVar = true;
+				stepVarDecl = varDecl;
+			}
+		}
+		if (!foundVar) {
+			stepVarDecl= facT.createVariableDeclaration();
+			stepVarDecl.setName("X" + step.getId());
+			stepVarDecl.setStep(step);
+			stepVarDecl.setVariableDeclarationType(VariableDeclarationType.INTERNAL);
+			container.getVariableDeclarations().add(stepVarDecl);
+		}
 		stepVar.setVariableDeclaration(stepVarDecl);
 		tAnd.getSubterm().add(stepVar);
 		if (cond != null) {
@@ -258,9 +271,11 @@ public class ProcessTransformation {
 		VariableDeclaration varSyncDecl = createVariableDeclaration("nSync", VariableDeclarationType.INPUT);
 		Variable varSync = createVariable(varSyncDecl);
 		Transition t1 = facG.createTransition();
+		t1.setId(getId());
 		t1.setTerm(varSync);
 		
 		Transition t2 = facG.createTransition();
+		t2.setId(getId());
 		Not tNot = facT.createNot();
 		Variable varSync2 = facT.createVariable();
 		varSync2.setVariableDeclaration(varSyncDecl);
@@ -295,7 +310,7 @@ public class ProcessTransformation {
 		EnclosingStep sProcess = facG.createEnclosingStep();
 		sProcess.setId(getId());
 		sControl.getPartialGrafcets().add(gControlNew);
-		sControl.getPartialGrafcets().add(gProcessNew);
+		sProcess.getPartialGrafcets().add(gProcessNew);
 		gControlNew.setEnclosingStep(sControl);
 		gProcessNew.setEnclosingStep(sProcess);
 		Step sWarte1 = facG.createStep(getId());
